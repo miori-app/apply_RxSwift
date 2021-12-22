@@ -10,6 +10,7 @@
 		3D7DA4A727721C7400E53E7F /* RepositListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DA4A627721C7400E53E7F /* RepositListViewController.swift */; };
 		3D7DA4A927721D6900E53E7F /* RepositListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DA4A827721D6900E53E7F /* RepositListCell.swift */; };
 		3D7DA4AC2772620A00E53E7F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3D7DA4AB2772620A00E53E7F /* SnapKit */; };
+		3D7DA4AE2772723000E53E7F /* RepositEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DA4AD2772723000E53E7F /* RepositEntity.swift */; };
 		3D8D0B40275FD9A6000156FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D0B3F275FD9A6000156FE /* AppDelegate.swift */; };
 		3D8D0B42275FD9A6000156FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D0B41275FD9A6000156FE /* SceneDelegate.swift */; };
 		3D8D0B49275FD9A7000156FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D0B48275FD9A7000156FE /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		2EE2CDB9C9AD1E99DEBA23DC /* Pods-RxSwiftPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftPractice.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftPractice/Pods-RxSwiftPractice.release.xcconfig"; sourceTree = "<group>"; };
 		3D7DA4A627721C7400E53E7F /* RepositListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositListViewController.swift; sourceTree = "<group>"; };
 		3D7DA4A827721D6900E53E7F /* RepositListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositListCell.swift; sourceTree = "<group>"; };
+		3D7DA4AD2772723000E53E7F /* RepositEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositEntity.swift; sourceTree = "<group>"; };
 		3D8D0B3C275FD9A6000156FE /* RxSwiftPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwiftPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8D0B3F275FD9A6000156FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D8D0B41275FD9A6000156FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				3D8D0B4D275FD9A7000156FE /* Info.plist */,
 				3D7DA4A627721C7400E53E7F /* RepositListViewController.swift */,
 				3D7DA4A827721D6900E53E7F /* RepositListCell.swift */,
+				3D7DA4AD2772723000E53E7F /* RepositEntity.swift */,
 			);
 			path = RxSwiftPractice;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D8D0B40275FD9A6000156FE /* AppDelegate.swift in Sources */,
+				3D7DA4AE2772723000E53E7F /* RepositEntity.swift in Sources */,
 				3D8D0B42275FD9A6000156FE /* SceneDelegate.swift in Sources */,
 				3D7DA4A927721D6900E53E7F /* RepositListCell.swift in Sources */,
 				3D7DA4A727721C7400E53E7F /* RepositListViewController.swift in Sources */,
@@ -593,7 +597,6 @@
 				INFOPLIST_FILE = RxSwiftPractice/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -622,7 +625,6 @@
 				INFOPLIST_FILE = RxSwiftPractice/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

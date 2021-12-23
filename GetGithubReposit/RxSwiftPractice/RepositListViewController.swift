@@ -13,6 +13,7 @@ class RepositListViewController : UITableViewController {
     private let organization = "miori-app"
     //네트워크 통신후 디코딩 된채로 넘어오는 내용
     private let repositories = BehaviorSubject<[RepositEntity]>(value: [])
+    // 여러 개의 Disposable을 관리할 수 있는 도구가 바로 DisposeBag
     private let disposeBag = DisposeBag()
     
     
@@ -45,6 +46,7 @@ class RepositListViewController : UITableViewController {
         Observable.from([organization])
             .map { organization -> URL in
                 // map 오퍼레이션 활용해 string 들어오면 url 로 바꿔줘
+                // Observerble에 의해 방출되는 아이템들에 대해 각각 함수를 적용하여 변환
                 return URL(string: "https://api.github.com/orgs/\(organization)/repos")!
             }
             .map { url -> URLRequest in
@@ -86,6 +88,7 @@ class RepositListViewController : UITableViewController {
                     return RepositEntity(id: id, name: name, description: description, stargazersCount: stargazersCount, language: language)
                 }
             }
+            //onNext : 데이터가 발생했을때
             .subscribe(onNext: { [weak self] newReposit in
                 print("new : \(newReposit)")
                 self?.repositories.onNext(newReposit)

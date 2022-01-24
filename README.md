@@ -35,9 +35,10 @@
         - disposables는 disposebag이  할당해제를 하려고할때마다, dispose를 호출함
 2. Operator
     - Observable 이벤트 입력받아서, 결과로 출력해내는 연산자
-    - 
-    - 
+
+    ### map vs flatMap
+    - map : 이벤트를 변경
+    - flatMap : 새로운 Observable을 생성하여 변경
+
 3. Scheduler
     - dispatch queue라고 생각
-    - 
-    -

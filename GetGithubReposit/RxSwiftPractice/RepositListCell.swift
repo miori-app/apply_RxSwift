@@ -38,7 +38,7 @@ class RepositListCell : UITableViewCell {
         nameLabel.text = reposit.name
         nameLabel.font = .systemFont(ofSize: 15, weight: .bold)
         
-        descriptionLabel.text = reposit.name
+        descriptionLabel.text = reposit.description
         descriptionLabel.font = .systemFont(ofSize: 15)
         descriptionLabel.numberOfLines = 2
         

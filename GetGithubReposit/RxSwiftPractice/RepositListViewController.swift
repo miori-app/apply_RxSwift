@@ -16,7 +16,8 @@ class RepositListViewController : UITableViewController {
     // 여러 개의 Disposable을 관리할 수 있는 도구가 바로 DisposeBag
     private let disposeBag = DisposeBag()
     
-    
+    private var datas : [[String:Any]] = [["" : ""]]
+    private var finalEntity : [RepositEntity] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         // navigation title
@@ -37,7 +38,8 @@ class RepositListViewController : UITableViewController {
     @objc func refreshTable() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else {return}
-            self.fetechRepositories(of: self.organization)
+            //self.fetechRepositories(of: self.organization)
+            self.fetchReposit2(of: self.organization)
         }
     }
     
@@ -69,7 +71,6 @@ class RepositListViewController : UITableViewController {
                       let result = json as? [[String:Any]] else {
                           return []
                       }
-                //print("dd :\(result)")
                 return result
             }
             .filter { objects in
@@ -83,14 +84,14 @@ class RepositListViewController : UITableViewController {
                           let description = dic["description"] as? String,
                           let stargazersCount = dic["stargazers_count"] as? Int,
                           let language = dic["language"] as? String else {
-                        return nil
+                              return nil
                           }
                     return RepositEntity(id: id, name: name, description: description, stargazersCount: stargazersCount, language: language)
                 }
             }
-            //onNext : 데이터가 발생했을때
+        //onNext : 데이터가 발생했을때
             .subscribe(onNext: { [weak self] newReposit in
-                print("new : \(newReposit)")
+                //print("new : \(newReposit)")
                 self?.repositories.onNext(newReposit)
                 
                 DispatchQueue.main.async {
@@ -99,33 +100,84 @@ class RepositListViewController : UITableViewController {
                 }
             })
             .disposed(by: disposeBag)
-            
+        
     }
     
+    
+    func fetchReposit2(of organization: String) {
+        let session = URLSession.shared
+        guard let url = URL(string: "https://api.github.com/orgs/\(organization)/repos") else { return }
+        
+        session.dataTask(with: url) { data, response, error in
+            guard error == nil else {
+                print("여기에러")
+                return
+            }
+            self.finalEntity = []
+            if let data = data,
+               let response = response as? HTTPURLResponse,
+               (response.statusCode >= 200 && response.statusCode < 300) {
+                // data
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String : Any]] {
+                    self.datas = json
+                    print(self.datas[0]["name"])
+                    print(self.datas.count)
+                    for idx in 0...self.datas.count-1 {
+                        let id = self.datas[idx]["id"] as? Int
+                        let name = self.datas[idx]["name"] as? String
+                        let description = self.datas[idx]["description"] as? String
+                        let stargazersCount = self.datas[idx]["stargazers_count"] as? Int
+                        let language = self.datas[idx]["language"] as? String
+                        let tmpEntity = RepositEntity(id: id ?? 0, name: name ?? "", description: description ?? "", stargazersCount: stargazersCount ?? 0, language: language ?? "")
+                        self.finalEntity.append(tmpEntity)
+                    }
+                    print(self.finalEntity)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.refreshControl?.endRefreshing()
+                    }
+                }
+            }
+        }.resume()
+    }
 }
+
 
 //UITableView DataSource Delegate
 extension RepositListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         do {
-            return try repositories.value().count
+            //return try repositories.value().count
+            return finalEntity.count
         } catch {
             return 0
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RepositListCell", for: indexPath) as? RepositListCell else { return UITableViewCell()}
         
+//                var currentRepo : RepositEntity? {
+//                    do {
+//                        return try repositories.value()[indexPath.row]
+//                    } catch {
+//                        return nil
+//                    }
+//                }
         var currentRepo : RepositEntity? {
             do {
-                return try repositories.value()[indexPath.row]
+                return try finalEntity[indexPath.row]
             } catch {
                 return nil
             }
         }
         
-        cell.reposit = currentRepo
+                cell.reposit = currentRepo
+        
+//        cell.nameLabel.text = finalEntity[indexPath.row].name
+//        cell.descriptionLabel.text = finalEntity[indexPath.row].description
+//        cell.starLabel.text = "\(finalEntity[indexPath.row].stargazersCount)"
+//        cell.languageLabel.text = finalEntity[indexPath.row].language
         return cell
     }
 }
